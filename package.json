@@ -1,0 +1,26 @@
+{
+  "name": "sportspotserver",
+  "version": "1.0.0",
+  "description": "Server for SportsSpot Service.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server/server.js",
+    "start": "node server/server.js"
+  },
+  "author": "Dhananjay Naik",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.10",
+    "mongodb": "^3.0.7",
+    "mongoose": "^5.0.17",
+    "nexmo": "^2.2.1",
+    "passport": "^0.4.0",
+    "validator": "^10.1.0"
+  }
+}
