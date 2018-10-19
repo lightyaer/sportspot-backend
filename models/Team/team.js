@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+
 
 let TeamSchema = new mongoose.Schema({
     name: {
@@ -38,24 +38,24 @@ let TeamSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    interestedSports:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Sport'
+    interestedSports: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sport'
     }],
-    followers:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
-    imgGallery:[{
+    imgGallery: [{
         data: Buffer,
-        contentType:String,
-        ref:'Gallery'
+        contentType: String,
+        ref: 'Gallery'
     }]
-})
+});
 
 
 let Team = mongoose.model('Team', TeamSchema);
 
 module.exports = {
     Team
-}
+};

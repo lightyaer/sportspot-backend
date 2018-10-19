@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
-let sportSchema = require('../Common/sport');
+const _ = require('lodash');
 
 
 const UserSchema = new mongoose.Schema({
@@ -22,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     }],
     otpauth: {
         type: Boolean
-       // expires:999999
+        // expires:999999
     },
     email: {
         type: String,
@@ -56,63 +55,63 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please enter your Mobile No.'],
         trim: true
     },
-    bio : {
-        type:String
+    bio: {
+        type: String
     },
     dob: {
-        type:String,
-        required:true
+        type: String,
+        required: true
     },
     genderID: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     cityID: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     stateID: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     countryID: {
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
-    interestedSports:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Sport'
+    interestedSports: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sport'
     }],
-    friends:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
-    followers:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
-    following:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
-    teams:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Team'
+    teams: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Team'
     }],
-    imgGallery:[{
+    imgGallery: [{
         data: Buffer,
-        contentType:String,
-        ref:'Gallery'
+        contentType: String,
+        ref: 'Gallery'
     }]
-    
 
-})
+
+});
 
 UserSchema.methods.toJSON = function () {
     var user = this;
     var userObject = user.toObject();
     return _.pick(userObject, ['_id', 'email', 'userName', 'mobileNo', 'mobileNo', 'bio']);
-}
+};
 
 UserSchema.methods.generateAuthToken = function () {
     var user = this;
@@ -122,7 +121,7 @@ UserSchema.methods.generateAuthToken = function () {
     return user.save().then(() => {
         return token;
     });
-}
+};
 
 UserSchema.statics.findByToken = function (token) {
     var User = this;
@@ -133,12 +132,12 @@ UserSchema.statics.findByToken = function (token) {
             '_id': decoded._id,
             'tokens.token': token,
             'tokens.access': 'auth'
-        })
+        });
     }
     catch (e) {
         return Promise.reject();
     }
-}
+};
 
 UserSchema.pre('save', function (next) {
     var user = this;
@@ -152,7 +151,7 @@ UserSchema.pre('save', function (next) {
     } else {
         next();
     }
-})
+});
 
 UserSchema.statics.findByCredentials = function (email, password) {
     var User = this;
@@ -168,10 +167,10 @@ UserSchema.statics.findByCredentials = function (email, password) {
                 } else {
                     reject();
                 }
-            })
-        })
-    })
-}
+            });
+        });
+    });
+};
 
 UserSchema.methods.removeToken = function (token) {
     var user = this;
@@ -180,10 +179,10 @@ UserSchema.methods.removeToken = function (token) {
             tokens: { token }
         }
     });
-}
+};
 
 let User = mongoose.model('User', UserSchema);
 
 module.exports = {
     User
-}
+};

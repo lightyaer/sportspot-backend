@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+
 
 let ArenaSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    followers:[{
-        type:mongoose.Schema.Types.ObjectId
+    followers: [{
+        type: mongoose.Schema.Types.ObjectId
     }],
     description: {
-        type:String
+        type: String
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -34,32 +34,29 @@ let ArenaSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    imgGallery:[{
+    imgGallery: [{
         data: Buffer,
-        contentType:String,
-        ref:'Gallery'
+        contentType: String,
+        ref: 'Gallery'
     }],
     serviceTime: [{
-        startTime:{
-            type:String, 
-            required:true
+        startTime: {
+            type: String,
+            required: true
         },
-        endTime:{
-            type:String, 
-            required:true
+        endTime: {
+            type: String,
+            required: true
         }
     }],
-    tarrif:{
-        type:Number,
-        required:true
+    tarrif: {
+        type: Number,
+        required: true
     }
-
-
-
 });
 
 let Arena = mongoose.model('Arena', ArenaSchema);
 
 module.exports = {
     Arena
-}
+};
